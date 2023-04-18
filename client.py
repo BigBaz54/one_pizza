@@ -18,6 +18,9 @@ class Client():
                 return False
         return True
     
+    def __str__(self):
+        return 'Client likes: ' + str(self.liked) + ' and dislikes: ' + str(self.disliked)
+    
 if __name__ == '__main__':
     client = Client(['a', 'b', 'c'], ['f', 'e'])
     print(client.does_like_pizza(['a', 'b']))
