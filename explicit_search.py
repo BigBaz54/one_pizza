@@ -1,5 +1,5 @@
-import pizza_parser
-
+from get_score import get_score
+from get_ingredients import get_ingredients
 
 def generate_all_subsets(ingredients):
     # generate all subsets of the list of ingredients (all ingredients must be distinct)
@@ -13,31 +13,11 @@ def generate_all_subsets(ingredients):
             new_subsets.append(subset)
         return new_subsets
 
-def get_ingredients(path):
-    # get the ingredients from the pizza file
-    clients = pizza_parser.parse(path)
-    ingredients = set()
-    for client in clients:
-        for ingredient in client.liked:
-            ingredients.add(ingredient)
-        for ingredient in client.disliked:
-            ingredients.add(ingredient)
-    return list(ingredients)
-
 def get_all_solutions(path):
     # get all possible combinations of ingredients
     ingredients = get_ingredients(path)
     solutions = generate_all_subsets(ingredients)
     return solutions
-
-def get_score(path, solution):
-    # get the score of a solution
-    clients = pizza_parser.parse(path)
-    score = 0
-    for client in clients:
-        if client.does_like_pizza(solution):
-            score += 1
-    return score
 
 def get_best_solution(path):
     # get the best solution
@@ -45,7 +25,7 @@ def get_best_solution(path):
     best_score = 0
     best_solution = []
     for solution in solutions:
-        score = get_score(path, solution)
+        score = get_score.get_score(path, solution)
         if score > best_score:
             best_score = score
             best_solution = solution
