@@ -22,6 +22,8 @@ class Recipe():
         return [ingredient for ingredient in self.ingredients if self.ingredients[ingredient] == 1]
     
     def get_fitness(self):
+        # creating the client instances every time takes is not efficient, but it's the cleanest way to do it
+        # with generations of 100 recipes, it takes approx 10% of the total time
         return get_score(self.file, self.get_ingredients())
 
 def first_generation(file, size):
