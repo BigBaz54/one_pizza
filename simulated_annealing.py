@@ -48,4 +48,4 @@ def simulated_annealing(file, temperature_init, annealing_rate=0.99, nb_iter=Non
     return best_state
 
 if __name__ == "__main__":
-    simulated_annealing("data/d_difficile.txt", temperature_init=10, annealing_rate=0.99, nb_iter=1000, output_file="d_difficile_20_99.txt")
+    simulated_annealing("data/d_difficile.txt", temperature_init=20, annealing_rate=0.99, nb_iter=1000, output_file="d_difficile_20_99.txt")
