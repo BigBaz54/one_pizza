@@ -49,7 +49,7 @@ def mutation(recipe, rate):
             recipe.toggle_ingredient(ingredient)
 
 def selection(recipes, size):
-    # only the size//2 best recipes are selected
+    # only the size best recipes are selected
     recipes.sort(key=lambda recipe: recipe.get_fitness(), reverse=True)
     return recipes[:size]
 
