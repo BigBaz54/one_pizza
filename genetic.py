@@ -56,14 +56,16 @@ def selection(recipes, size):
 def tournament_selection(recipes, size):
     # the best recipe is always selected and we still have some randomness
     selected = []
-    for i in range(size-1):
+    for i in range(size):
         if recipes[i].get_fitness() > recipes[-i].get_fitness():
             selected.append(recipes[i])
         else:
             selected.append(recipes[-i])
     return selected
 
-def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None):
+def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None, output_file=None, tournament=False):
+    if output_file is None:
+        output_file = file.split('/')[1]
     if nb_gen is None and objective is None:
         raise ValueError("Either nb_gen or objective must be specified")
     if pop_size % 2 != 0:
@@ -73,9 +75,9 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
     if not os.path.exists("solutions/genetic"):
         os.makedirs("solutions/genetic")
     while (nb_gen is None or count < nb_gen) and (objective is None or gen[0].get_fitness() < objective):
-        with open(os.path.join("solutions", "genetic", file.split('/')[1]), "a") as f:
+        with open(os.path.join("solutions", "genetic", output_file), "a") as f:
             f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_fitness()) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
-        gen = selection(gen, pop_size//2)
+        gen = selection(gen, pop_size//2) if tournament == False else tournament_selection(gen, pop_size//2)
         for i in range(pop_size//4):
             child1, child2 = crossover(gen[i], gen[-i])
             mutation(child1, mutation_rate)
@@ -87,8 +89,17 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
 
 
 if __name__ == "__main__":
-    recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800)
-    recipes.sort(key=lambda recipe: recipe.get_fitness(), reverse=True)
-    print(recipes[0].get_ingredients())
+    # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=500, output_file="d_difficile_001.txt")
+
+    # recipes2 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=500, output_file="d_difficile_01.txt")
+
+    # recipes3 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=500, output_file="d_difficile_05.txt")
+
+    recipes4 = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=500, output_file="d_difficile_001_T.txt", tournament=True)
+
+    recipes5 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=500, output_file="d_difficile_01_T.txt", tournament=True)
+
+    recipes6 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=500, output_file="d_difficile_05_T.txt", tournament=True)
+
 
     
