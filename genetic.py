@@ -30,14 +30,14 @@ def mutation(recipe, rate):
 
 def selection(recipes, size):
     # only the size best recipes are selected
-    recipes.sort(key=lambda recipe: recipe.get_fitness(), reverse=True)
+    recipes.sort(key=lambda recipe: recipe.get_score(), reverse=True)
     return recipes[:size]
 
 def tournament_selection(recipes, size):
     # the best recipe is always selected and we still have some randomness
     selected = []
     for i in range(size):
-        if recipes[i].get_fitness() > recipes[-i-1].get_fitness():
+        if recipes[i].get_score() > recipes[-i-1].get_score():
             selected.append(recipes[i])
         else:
             selected.append(recipes[-i-1])
@@ -54,9 +54,9 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
     count = 0
     if not os.path.exists("solutions/genetic"):
         os.makedirs("solutions/genetic")
-    while (nb_gen is None or count < nb_gen) and (objective is None or gen[0].get_fitness() < objective):
+    while (nb_gen is None or count < nb_gen) and (objective is None or gen[0].get_score() < objective):
         with open(os.path.join("solutions", "genetic", output_file), "a") as f:
-            f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_fitness()) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
+            f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_score()) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
         gen = selection(gen, pop_size//2) if tournament == False else tournament_selection(gen, pop_size//2)
         for i in range(pop_size//4):
             child1, child2 = crossover(gen[i], gen[-i-1])
