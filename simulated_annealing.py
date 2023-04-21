@@ -40,11 +40,12 @@ def simulated_annealing(file, temperature_init, annealing_rate=0.99, nb_iter=Non
         else:
             if random.random() < accept_probability(state.get_score(), neighbour.get_score(), temperature):
                 state = neighbour
-        with open(os.path.join("solutions", "simulated_annealing", output_file), "a") as f:
-            f.write("Iteration: " + str(count) + "\nBest score: " + str(best_fitness) + "\nBest recipe: " + str(best_state.get_ingredients()) + "\n\n")
+        if count % 10 == 0:
+            with open(os.path.join("solutions", "simulated_annealing", output_file), "a") as f:
+                f.write("Iteration: " + str(count) + "\nBest score: " + str(best_fitness) + "\nBest recipe: " + str(best_state.get_ingredients()) + "\n\n")
         count += 1
         temperature = next_temperature(temperature, annealing_rate)
     return best_state
 
 if __name__ == "__main__":
-    simulated_annealing("data/d_difficile.txt", temperature_init=20, annealing_rate=0.99, nb_iter=1000, output_file="d_difficile_20_99.txt")
+    simulated_annealing("data/d_difficile.txt", temperature_init=10, annealing_rate=0.99, nb_iter=1000, output_file="d_difficile_20_99.txt")
