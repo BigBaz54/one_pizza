@@ -2,6 +2,7 @@ import math
 import os
 import random
 from recipe import Recipe
+import matplotlib.pyplot as plt
 
 
 def first_state(file):
@@ -47,5 +48,22 @@ def simulated_annealing(file, temperature_init, annealing_rate=0.99, nb_iter=Non
         temperature = next_temperature(temperature, annealing_rate)
     return best_state
 
+
+def plot_results(file, title=None):
+    scores = []
+    with open(os.path.join("solutions", "simulated_annealing", file), "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            if line.startswith("Best score"):
+                scores.append(int(line.split(": ")[1]))
+    plt.plot(range(0, len(scores*10), 10), scores)
+    plt.xlabel("Iteration")
+    plt.ylabel("Score")
+    if title is None:
+        title = file.split('.')[0]
+    plt.title(title)
+    plt.show()
+
 if __name__ == "__main__":
-    simulated_annealing("data/d_difficile.txt", temperature_init=20, annealing_rate=0.99, nb_iter=1000, output_file="d_difficile_20_99.txt")
+    simulated_annealing("data/d_difficile.txt", temperature_init=20, annealing_rate=0.99, nb_iter=100, output_file="d_difficile_20_99.txt")
+    plot_results("d_difficile_20_99.txt", title="Initial temperature: 20, Annealing rate: 0.99")
