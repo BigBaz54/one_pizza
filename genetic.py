@@ -3,29 +3,8 @@ import random
 from get_score import get_score
 from get_ingredients import get_ingredients
 import matplotlib.pyplot as plt
+from recipe import Recipe
 
-class Recipe():
-    def __init__(self, file, ingredients=None):
-        self.file = file
-        if not ingredients:
-            all_ingredients = get_ingredients(file)
-            self.ingredients = {ingredient: random.randint(0,1) for ingredient in all_ingredients}
-        else:
-            self.ingredients = ingredients
-    
-    def __str__(self):
-        return str(self.ingredients)
-    
-    def toggle_ingredient(self, ingredient):
-        self.ingredients[ingredient] = 1 - self.ingredients[ingredient]
-
-    def get_ingredients(self):
-        return [ingredient for ingredient in self.ingredients if self.ingredients[ingredient] == 1]
-    
-    def get_fitness(self):
-        # creating the client instances every time takes is not efficient, but it's the cleanest way to do it
-        # with generations of 100 recipes, it takes approx 10% of the total time
-        return get_score(self.file, self.get_ingredients())
 
 def first_generation(file, size):
     return [Recipe(file=file) for _ in range(size)]
@@ -106,14 +85,10 @@ def plot_results(file, title=None):
 
 
 if __name__ == "__main__":
-    # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001.txt")
+    recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001.txt")
 
-    # recipes2 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01.txt")
+    recipes2 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01.txt")
 
-    # recipes3 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05.txt")
+    recipes3 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05.txt")
 
-    # recipes4 = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001_T.txt", tournament=True)
-
-    # recipes5 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01_T.txt", tournament=True)
-
-    # recipes6 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05_T.txt", tournament=True)
+    recipes4 = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001_T.txt", tournament=True)
