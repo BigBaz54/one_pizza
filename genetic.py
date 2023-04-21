@@ -2,6 +2,7 @@ import os
 import random
 from get_score import get_score
 from get_ingredients import get_ingredients
+import matplotlib.pyplot as plt
 
 class Recipe():
     def __init__(self, file, ingredients=None):
@@ -87,6 +88,22 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
         count += 1
     return gen
 
+def plot_results(file, title=None):
+    scores = []
+    with open(os.path.join("solutions", "genetic", file), "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            if line.startswith("Best score"):
+                scores.append(int(line.split(": ")[1]))
+    plt.plot(scores)
+    plt.xlabel("Generation")
+    plt.ylabel("Score")
+    if title is None:
+        title = file.split('.')[0]
+    plt.title(title)
+    plt.show()
+
+
 
 if __name__ == "__main__":
     # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001.txt")
@@ -97,9 +114,6 @@ if __name__ == "__main__":
 
     # recipes4 = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001_T.txt", tournament=True)
 
-    recipes5 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01_T.txt", tournament=True)
+    # recipes5 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01_T.txt", tournament=True)
 
-    recipes6 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05_T.txt", tournament=True)
-
-
-    
+    # recipes6 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05_T.txt", tournament=True)
