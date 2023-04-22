@@ -17,7 +17,10 @@ def next_temperature(temperature, annealing_rate):
     return temperature * annealing_rate
 
 def accept_probability(old_fitness, new_fitness, temperature):
-    return math.exp(-(old_fitness - new_fitness) / temperature)
+    try :
+        return math.exp((new_fitness - old_fitness) / temperature)
+    except ZeroDivisionError:
+        return 0
 
 def simulated_annealing(file, temperature_init, annealing_rate=0.99, nb_iter=None, objective=None, output_file=None):
     if output_file is None:
