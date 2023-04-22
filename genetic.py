@@ -10,8 +10,8 @@ def first_generation(file, size):
     return [Recipe(file=file) for _ in range(size)]
 
 def crossover(parent1, parent2):
-    child1 = Recipe(ingredients=parent2.ingredients.copy(), file=parent1.file)
-    child2 = Recipe(ingredients=parent1.ingredients.copy(), file=parent2.file)
+    child1 = parent1.copy()
+    child2 = parent2.copy()
     c = 0
     ingr_nb = len(parent1.ingredients)
     for ingredient in parent1.ingredients:
@@ -85,10 +85,11 @@ def plot_results(file, title=None):
 
 
 if __name__ == "__main__":
-    recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001.txt")
+    # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=1000, output_file="d_difficile_001_2.txt", tournament=True)
 
-    recipes2 = genetic_algorithm("data/d_difficile.txt", 100, 0.01, objective=1800, nb_gen=300, output_file="d_difficile_01.txt")
-
-    recipes3 = genetic_algorithm("data/d_difficile.txt", 100, 0.05, objective=1800, nb_gen=300, output_file="d_difficile_05.txt")
-
-    recipes4 = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=300, output_file="d_difficile_001_T.txt", tournament=True)
+    # plot_results("d_difficile_0005.txt", "Mutation rate = 0.0005")
+    plot_results("d_difficile_001.txt", "Mutation rate = 0.001")
+    # plot_results("d_difficile_01.txt", "Mutation rate = 0.01")
+    # plot_results("d_difficile_05.txt", "Mutation rate = 0.05")
+    # plot_results("d_difficile_001_T.txt", "Mutation rate = 0.001, tournament selection")
+    plot_results("d_difficile_001_T_2.txt", "Mutation rate = 0.001, tournament selection")
