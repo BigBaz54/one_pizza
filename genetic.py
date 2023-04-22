@@ -1,7 +1,6 @@
+import math
 import os
 import random
-from get_score import get_score
-from get_ingredients import get_ingredients
 import matplotlib.pyplot as plt
 from recipe import Recipe
 
@@ -67,19 +66,24 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
         count += 1
     return gen
 
-def plot_results(file, title=None):
-    scores = []
-    with open(os.path.join("solutions", "genetic", file), "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if line.startswith("Best score"):
-                scores.append(int(line.split(": ")[1]))
-    plt.plot(scores)
-    plt.xlabel("Generation")
-    plt.ylabel("Score")
-    if title is None:
-        title = file.split('.')[0]
-    plt.title(title)
+def plot_results(files, titles=None):
+    if titles is None:
+        titles = files
+    elif len(titles) != len(files):
+        raise ValueError("Titles must have the same length as files")
+    n = len(files)
+    len_side = math.ceil(math.sqrt(n))
+    fig, axs = plt.subplots(len_side, len_side)
+    for i in range(n):
+        scores = []
+        with open(os.path.join("solutions", "genetic", files[i]), "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if line.startswith("Best score"):
+                    scores.append(int(line.split(": ")[1]))
+        axs[i%len_side, i//len_side].plot(range(0, len(scores)*10, 10), scores)
+        axs[i%len_side, i//len_side].set_title(titles[i])
+    fig.tight_layout()
     plt.show()
 
 
@@ -87,9 +91,4 @@ def plot_results(file, title=None):
 if __name__ == "__main__":
     # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=1000, output_file="d_difficile_001_2.txt", tournament=True)
 
-    # plot_results("d_difficile_0005.txt", "Mutation rate = 0.0005")
-    plot_results("d_difficile_001.txt", "Mutation rate = 0.001")
-    # plot_results("d_difficile_01.txt", "Mutation rate = 0.01")
-    # plot_results("d_difficile_05.txt", "Mutation rate = 0.05")
-    # plot_results("d_difficile_001_T.txt", "Mutation rate = 0.001, tournament selection")
-    plot_results("d_difficile_001_T_2.txt", "Mutation rate = 0.001, tournament selection")
+    plot_results(["d_difficile_001.txt", "d_difficile_001_T.txt", "d_difficile_001_T_2.txt"], ["Mutation rate = 0.001", "Mutation rate = 0.001, tournament selection", "Mutation rate = 0.001, tournament selection 2"])
