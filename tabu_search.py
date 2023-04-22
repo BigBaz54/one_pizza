@@ -3,7 +3,7 @@ import os
 
 from matplotlib import pyplot as plt
 from recipe import Recipe
-
+import pizza_parser
 
 class TabuList():
     def __init__(self, size):
@@ -37,25 +37,26 @@ def tabu_search(file, tabu_size, objective=None, max_iterations=None, output_fil
         raise ValueError("Either max_iterations or objective must be specified")
     if output_file is None:
         output_file = file.split('/')[1]
+    clients = pizza_parser.parse(file)
     state = first_state(file)
     tabu_list = TabuList(tabu_size)
     count = 0
     if not os.path.exists("solutions/tabu_search"):
         os.makedirs("solutions/tabu_search")
     best_state = state
-    best_score = state.get_score()
+    best_score = state.get_score(clients=clients)
     while (max_iterations is None or count < max_iterations) and (objective is None or best_score < objective):
         neighbours = get_neighbours(state)
         neighbours = [neighbour for neighbour in neighbours if not tabu_list.contains(neighbour)]
         if len(neighbours) == 0:
             raise Exception("No neighbours found")
         if len(neighbours) > 0:
-            neighbours.sort(key=lambda x: x.get_score(), reverse=True)
+            neighbours.sort(key=lambda x: x.get_score(clients=clients), reverse=True)
             state = neighbours[0]
             tabu_list.add(state)
-            if state.get_score() > best_score:
+            if state.get_score(clients=clients) > best_score:
                 best_state = state
-                best_score = state.get_score()
+                best_score = state.get_score(clients=clients)
         if count % 10 == 0:
             with open(os.path.join("solutions", "tabu_search", output_file), "a") as f:
                 f.write("Iteration: " + str(count) + "\nBest score: " + str(best_score) + "\nBest recipe: " + str(best_state.get_ingredients()) + "\n\n")

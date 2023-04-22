@@ -3,6 +3,7 @@ import os
 import random
 import matplotlib.pyplot as plt
 from recipe import Recipe
+import pizza_parser
 
 
 def first_generation(file, size):
@@ -27,16 +28,16 @@ def mutation(recipe, rate):
         if random.random() < rate:
             recipe.toggle_ingredient(ingredient)
 
-def selection(recipes, size):
+def selection(recipes, size, clients=None):
     # only the size best recipes are selected
-    recipes.sort(key=lambda recipe: recipe.get_score(), reverse=True)
+    recipes.sort(key=lambda recipe: recipe.get_score(clients), reverse=True)
     return recipes[:size]
 
-def tournament_selection(recipes, size):
+def tournament_selection(recipes, size, clients=None):
     # the best recipe is always selected and we still have some randomness
     selected = []
     for i in range(size):
-        if recipes[i].get_score() > recipes[-i-1].get_score():
+        if recipes[i].get_score(clients) > recipes[-i-1].get_score(clients):
             selected.append(recipes[i])
         else:
             selected.append(recipes[-i-1])
@@ -49,14 +50,15 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
         raise ValueError("Either nb_gen or objective must be specified")
     if pop_size % 2 != 0:
         raise ValueError("Population size must be even")
+    clients = pizza_parser.parse(file)
     gen = first_generation(file, pop_size)
     count = 0
     if not os.path.exists("solutions/genetic"):
         os.makedirs("solutions/genetic")
-    while (nb_gen is None or count < nb_gen) and (objective is None or gen[0].get_score() < objective):
+    while (nb_gen is None or count < nb_gen) and (objective is None or gen[0].get_score(clients) < objective):
         with open(os.path.join("solutions", "genetic", output_file), "a") as f:
-            f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_score()) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
-        gen = selection(gen, pop_size//2) if tournament == False else tournament_selection(gen, pop_size//2)
+            f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_score(clients)) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
+        gen = selection(gen, pop_size//2, clients) if tournament == False else tournament_selection(gen, pop_size//2, clients)
         for i in range(pop_size//4):
             child1, child2 = crossover(gen[i], gen[-i-1])
             mutation(child1, mutation_rate)

@@ -21,10 +21,10 @@ class Recipe():
     def get_ingredients(self):
         return [ingredient for ingredient in self.ingredients if self.ingredients[ingredient] == 1]
     
-    def get_score(self):
+    def get_score(self, clients=None):
         # creating the client instances every time takes is not efficient, but it's the cleanest way to do it
         # with generations of 100 recipes, it takes approx 10% of the total time
-        return get_score(self.file, self.get_ingredients())
+        return get_score(self.file, self.get_ingredients(), clients=clients)
 
     def copy(self):
         return Recipe(self.file, self.ingredients.copy())

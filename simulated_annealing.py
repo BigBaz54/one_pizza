@@ -3,6 +3,7 @@ import os
 import random
 from recipe import Recipe
 import matplotlib.pyplot as plt
+import pizza_parser
 
 
 def first_state(file):
@@ -27,22 +28,23 @@ def simulated_annealing(file, temperature_init, annealing_rate=0.99, max_iterati
         output_file = file.split('/')[1]
     if objective is None and max_iterations is None:
         raise ValueError("Either max_iterations or objective must be specified")
+    clients = pizza_parser.parse(file)
     state = first_state(file)
     best_state = state
-    best_fitness = state.get_score()
+    best_fitness = state.get_score(clients)
     temperature = temperature_init
     count = 0
     if not os.path.exists("solutions/simulated_annealing"):
         os.makedirs("solutions/simulated_annealing")
     while (max_iterations is None or count < max_iterations) and (objective is None or best_fitness < objective):
         neighbour = get_one_neighbour(state)
-        if neighbour.get_score() > state.get_score():
+        if neighbour.get_score(clients) > state.get_score(clients):
             state = neighbour
-            if state.get_score() > best_fitness:
+            if state.get_score(clients) > best_fitness:
                 best_state = state
-                best_fitness = state.get_score()
+                best_fitness = state.get_score(clients)
         else:
-            if random.random() < accept_probability(state.get_score(), neighbour.get_score(), temperature):
+            if random.random() < accept_probability(state.get_score(clients), neighbour.get_score(clients), temperature):
                 state = neighbour
         if count % 10 == 0:
             with open(os.path.join("solutions", "simulated_annealing", output_file), "a") as f:
