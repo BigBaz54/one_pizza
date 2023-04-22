@@ -25,3 +25,14 @@ class Recipe():
         # creating the client instances every time takes is not efficient, but it's the cleanest way to do it
         # with generations of 100 recipes, it takes approx 10% of the total time
         return get_score(self.file, self.get_ingredients())
+
+    def copy(self):
+        return Recipe(self.file, self.ingredients.copy())
+     
+    def __eq__(self, other):
+        return self.ingredients == other.ingredients
+    
+if __name__ == "__main__":
+    recipe = Recipe("data/b_basique.txt")
+    recipe2 = recipe.copy()
+    print(recipe==recipe2)
