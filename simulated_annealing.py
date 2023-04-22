@@ -49,21 +49,28 @@ def simulated_annealing(file, temperature_init, annealing_rate=0.99, nb_iter=Non
     return best_state
 
 
-def plot_results(file, title=None):
-    scores = []
-    with open(os.path.join("solutions", "simulated_annealing", file), "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if line.startswith("Best score"):
-                scores.append(int(line.split(": ")[1]))
-    plt.plot(range(0, len(scores*10), 10), scores)
-    plt.xlabel("Iteration")
-    plt.ylabel("Score")
-    if title is None:
-        title = file.split('.')[0]
-    plt.title(title)
+def plot_results(files, titles=None):
+    if titles is None:
+        titles = files
+    elif len(titles) != len(files):
+        raise ValueError("Titles must have the same length as files")
+    n = len(files)
+    len_side = math.ceil(math.sqrt(n))
+    fig, axs = plt.subplots(len_side, len_side)
+    for i in range(n):
+        scores = []
+        with open(os.path.join("solutions", "simulated_annealing", files[i]), "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if line.startswith("Best score"):
+                    scores.append(int(line.split(": ")[1]))
+        axs[i%len_side, i//len_side].plot(range(0, len(scores)*10, 10), scores)
+        axs[i%len_side, i//len_side].set_title(titles[i])
+    fig.tight_layout()
     plt.show()
 
 if __name__ == "__main__":
-    simulated_annealing("data/d_difficile.txt", temperature_init=20, annealing_rate=0.99, nb_iter=100, output_file="d_difficile_20_99.txt")
-    plot_results("d_difficile_20_99.txt", title="Initial temperature: 20, Annealing rate: 0.99")
+    for temp in [100, 50, 20, 10, 5, 2, 1]:
+        for rate in [0.99, 0.95, 0.9, 0.8, 0.5, 0.1]:
+            simulated_annealing("data/d_difficile.txt", temperature_init=temp, annealing_rate=rate, nb_iter=1000, output_file=f"d_difficile_{temp}_{str(rate).split('.')[1]}.txt")
+    plot_results(["d_difficile_100_0.99.txt", "d_difficile_100_0.95.txt", "d_difficile_100_0.9.txt", "d_difficile_100_0.8.txt", "d_difficile_100_0.5.txt"])
