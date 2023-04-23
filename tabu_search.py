@@ -32,13 +32,16 @@ def get_neighbours(state):
         neighbours.append(neighbour)
     return neighbours
 
-def tabu_search(file, tabu_size, objective=None, max_iterations=None, output_file=None):
+def tabu_search(file, tabu_size, objective=None, max_iterations=None, output_file=None, first_state=None):
     if objective is None and max_iterations is None:
         raise ValueError("Either max_iterations or objective must be specified")
     if output_file is None:
         output_file = file.split('/')[1]
     clients = pizza_parser.parse(file)
-    state = first_state(file)
+    if first_state is None:
+        state = first_state(file)
+    else:
+        state = first_state
     tabu_list = TabuList(tabu_size)
     count = 0
     if not os.path.exists("solutions/tabu_search"):
