@@ -6,10 +6,17 @@ The data I used is in the *data* folder and the solutions are written in subfold
 
 I used several approaches to solve it, to experiment with different algorithms and to compare the results.
 
+## The scoring function
+
+The scoring function is the same for all the approaches. It is the number of clients satistified by the recipe as described in the problem statement.
+
+It is very long to compute for large instances of the problem since you need to go through the whole recipe for each client to ensure that it contains all their liked ingredients and none of their disliked ingredients.
+
 ## Different approaches
 
 Here is a summary of the different approaches I used to solve the problem.
 - [one\_pizza](#one_pizza)
+  - [The scoring function](#the-scoring-function)
   - [Different approaches](#different-approaches)
     - [Explicit search](#explicit-search)
     - [Genetic](#genetic)
@@ -72,14 +79,11 @@ It keeps a list of the last solutions and prevents the algorithm from going back
 
 You can modify the size of the tabu list. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
-image here
-
 ### Greedy algorithm
 
 This approach is based on the greedy algorithm.
 
 It consists it iteratingly adding to the recipe the ingredient that will increase the score the most. It stops when the score cannot be increased anymore.
-
 
 
 
