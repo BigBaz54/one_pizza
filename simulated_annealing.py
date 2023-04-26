@@ -78,7 +78,9 @@ def plot_results(files, titles=None):
     plt.show()
 
 if __name__ == "__main__":
-    for temp in [50, 20, 10, 5, 2, 1]:
-        for rate in [0.99, 0.95, 0.9, 0.8]:
-            simulated_annealing("data/d_difficile.txt", temperature_init=temp, annealing_rate=rate, max_iterations=1000, output_file=f"d_difficile_{temp}_{str(rate).split('.')[1]}.txt")
-    # plot_results(["d_difficile_100_0.99.txt", "d_difficile_100_0.95.txt", "d_difficile_100_0.9.txt", "d_difficile_100_0.8.txt", "d_difficile_100_0.5.txt"])
+    # for temp in [100, 50, 20, 10, 5, 2, 1]:
+    #     for rate in [0.99, 0.95, 0.9, 0.8]:
+    #         simulated_annealing("data/d_difficile.txt", temperature_init=temp, annealing_rate=rate, max_iterations=1000, output_file=f"d_difficile_{temp}_{str(rate).split('.')[1]}.txt")
+    
+    # plot results were rate = 0.99
+    plot_results(["d_difficile_100_0.99.txt", "d_difficile_50_0.99.txt", "d_difficile_20_0.99.txt", "d_difficile_10_0.99.txt", "d_difficile_5_0.99.txt", "d_difficile_2_0.99.txt", "d_difficile_1_0.99.txt"], ["initial temperature = 100", "initial temperature = 50", "initial temperature = 20", "initial temperature = 10", "initial temperature = 5", "initial temperature = 2", "initial temperature = 1"])

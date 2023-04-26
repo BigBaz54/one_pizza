@@ -26,7 +26,7 @@ This is the most basic approach. It consists in trying all the possible combinat
 
 ### Genetic
 
-This approach is based on the genetic algorithm. It consists in creating a population of solutions and then to evolve it to find the best solution. The evolution is done by selecting the best solutions, crossing them and mutating them.
+This approach is based on the genetic algorithm. It consists in creating a population of solutions and then to evolve it to find the best solution. The evolution is done by selecting the best solutions, crossing them and mutating them to generate the next generation.
 
 The selection is done either by selecting the top 50% of the population or by tournament which ensures that the best recipe is selected but adds randomness and variety to the population.
 
@@ -37,7 +37,7 @@ The mutation is done by randomly toggling the presence of an ingredient in a rec
 You can modify the size of the population and the mutation rate and choose between the different selection methods.
 The algorithm stops after a given number of generations or if the best solution has reached the objective score given by the user.
 
-
+image here
 
 
 
