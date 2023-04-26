@@ -15,6 +15,10 @@ Here is a summary of the different approaches I used to solve the problem.
 - [**tabu search**](#tabu-search)
 - [**greedy algorithm**](#greedy-algorithm)
 
+For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
+
+For genetic, simulated annealing and tabu search, the results are written in a file during the execution of the algorithm and can be visualized with the *plot_results* function.
+
 
 ### Explicit search
 
