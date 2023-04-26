@@ -47,7 +47,7 @@ This approach is based on the simulated annealing algorithm. It consists in crea
 
 It starts with a given temperature and then decreases it at each iteration at a given rate. The temperature is used to decide whether to keep the new solution or not. The higher the temperature, the more likely it is to keep a solution that is worse than the current one. This allows the algorithm to escape local minima.
 
-You can modify the initial temperature, the temperature decrease rate and the number of iterations.
+You can modify the initial temperature, the temperature decrease rate. The algorithm stops after a given number of generations or if the best solution has reached the objective score given by the user.
 
 image here
 
@@ -57,7 +57,7 @@ This approach is based on the tabu search algorithm. It consists in creating a s
 
 It keeps a list of the last solutions and prevents the algorithm from going back to these solutions. This allows the algorithm to escape local minima.
 
-You can modify the size of the tabu list and the number of iterations.
+You can modify the size of the tabu list. The algorithm stops after a given number of generations or if the best solution has reached the objective score given by the user.
 
 image here
 
