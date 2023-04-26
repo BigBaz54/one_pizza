@@ -15,7 +15,6 @@ Here is a summary of the different approaches I used to solve the problem.
     - [Genetic](#genetic)
     - [Simulated annealing](#simulated-annealing)
     - [Tabu search](#tabu-search)
-    - [Greedy algorithm](#greedy-algorithm)
 
 For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
 
@@ -61,11 +60,7 @@ You can modify the size of the tabu list and the number of iterations.
 
 image here
 
-### Greedy algorithm
 
-This approach is based on the greedy algorithm.
-
-It consists it iteratingly adding to the recipe the ingredient that will increase the score the most. It stops when the score cannot be increased anymore.
 
 
 
