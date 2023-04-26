@@ -1,4 +1,3 @@
-from client import Client
 from recipe import Recipe
 from get_ingredients import get_ingredients
 import pizza_parser
