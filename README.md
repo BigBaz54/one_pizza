@@ -9,15 +9,17 @@ I used several approaches to solve it, to experiment with different algorithms a
 ## Different approaches
 
 Here is a summary of the different approaches I used to solve the problem.
-- [**explicit search**](#explicit-search)
-- [**genetic**](#genetic)
-- [**simulated annealing**](#simulated-annealing)
-- [**tabu search**](#tabu-search)
-- [**greedy algorithm**](#greedy-algorithm)
+- [one\_pizza](#one_pizza)
+  - [Different approaches](#different-approaches)
+    - [Explicit search](#explicit-search)
+    - [Genetic](#genetic)
+    - [Simulated annealing](#simulated-annealing)
+    - [Tabu search](#tabu-search)
+    - [Greedy algorithm](#greedy-algorithm)
 
 For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
 
-For genetic, simulated annealing and tabu search, the results are written in a file during the execution of the algorithm and can be visualized with the *plot_results* function.
+For genetic, simulated annealing and tabu search, the results are written in a file during the execution of the algorithm and can be visualized with the *plot_results* function. You can start these algorithms with a given solution to continue the search from this solution otherwise a random solution is generated.
 
 
 ### Explicit search
@@ -38,6 +40,32 @@ You can modify the size of the population and the mutation rate and choose betwe
 The algorithm stops after a given number of generations or if the best solution has reached the objective score given by the user.
 
 image here
+
+### Simulated annealing
+
+This approach is based on the simulated annealing algorithm. It consists in creating a solution and then to modify it to find the best solution. The modification is done by randomly adding or removing an ingredient from a recipe.
+
+It starts with a given temperature and then decreases it at each iteration at a given rate. The temperature is used to decide whether to keep the new solution or not. The higher the temperature, the more likely it is to keep a solution that is worse than the current one. This allows the algorithm to escape local minima.
+
+You can modify the initial temperature, the temperature decrease rate and the number of iterations.
+
+image here
+
+### Tabu search
+
+This approach is based on the tabu search algorithm. It consists in creating a solution and then to modify it to find the best solution. The modification is done by randomly adding or removing an ingredient from a recipe.
+
+It keeps a list of the last solutions and prevents the algorithm from going back to these solutions. This allows the algorithm to escape local minima.
+
+You can modify the size of the tabu list and the number of iterations.
+
+image here
+
+### Greedy algorithm
+
+This approach is based on the greedy algorithm.
+
+It consists it iteratingly adding to the recipe the ingredient that will increase the score the most. It stops when the score cannot be increased anymore.
 
 
 
