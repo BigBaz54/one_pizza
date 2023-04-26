@@ -29,6 +29,7 @@ def greedy(file):
 
 if __name__ == '__main__':
     r = greedy('data/d_difficile.txt')
-    print("Best score:", r.get_score())
+    # takes hours
+    # print("Best score:", r.get_score())
 
 
