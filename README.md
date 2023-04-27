@@ -77,9 +77,9 @@ Here are the results I got for different values of the temperature and the tempe
 
 We can see that a temperatures of 10 to 20 with high decrease rate or a temperature of 5 to 10 with a low decrease rate give the best results.
 
-As shown in the plot below, a decrease rate of 0.99 with too high temperatures is suboptimal because worse solutions are kept too often and the best solution stagnates for a while.
+As shown in the plots below, a decrease rate of 0.99 with too high temperatures is suboptimal because worse solutions are kept too often and the best solution stagnates for a while.
 
-image here
+<img src="https://user-images.githubusercontent.com/96493391/234730967-ac48e4ed-27bf-4fd6-8438-6e9d330c23f6.png" width="660" height="550">
 
 ### Tabu search
 
@@ -91,7 +91,7 @@ You can modify the size of the tabu list. The algorithm stops after a given numb
 
 I didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. 
 
-It reached 1769 in 200 iterations which took several hours.
+It reached a score of 1769 in 200 iterations which took several hours.
 
 Maybe only allowing to toggle the most promising ingredients would help reducing the size of the neighborhood. I might try to implement this in the future.
 
