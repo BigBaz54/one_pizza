@@ -15,14 +15,11 @@ It is very long to compute for large instances of the problem since you need to 
 ## Different approaches
 
 Here is a summary of the different approaches I used to solve the problem.
-- [one\_pizza](#one_pizza)
-  - [The scoring function](#the-scoring-function)
-  - [Different approaches](#different-approaches)
-    - [Explicit search](#explicit-search)
-    - [Genetic](#genetic)
-    - [Simulated annealing](#simulated-annealing)
-    - [Tabu search](#tabu-search)
-    - [Greedy algorithm](#greedy-algorithm)
+  - [Explicit search](#explicit-search)
+  - [Genetic](#genetic)
+  - [Simulated annealing](#simulated-annealing)
+  - [Tabu search](#tabu-search)
+  - [Greedy algorithm](#greedy-algorithm)
 
 For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
 
