@@ -46,6 +46,19 @@ The mutation is done by randomly toggling the presence of an ingredient in a rec
 You can modify the size of the population and the mutation rate and choose between the different selection methods.
 The algorithm stops after a given number of generations or if the best solution has reached the objective score given by the user.
 
+Here are the results I got for different values of the mutation rate. The population size is 100 and the number of generations is 300. The selection method is elitism which means that the top 50% of the population is selected.
+
+| **Mutation rate** | **Score** |
+|:-----------------:|:---------:|
+| 0.05              | 1552      |
+| 0.01              | 1663      |
+| 0.001             | 1749      |
+| 0.0005            | 1730      |
+
+A mutation rate around 0.001 seems to be the best choice for this instance of the problem. It has 600 ingredients so such mutation rates correspond to less than 1 ingredient being mutated on average. It allows the algorithm to explore the search space without making too many changes at once.
+
+The plot below shows the evolution of the best solution for both selection methods for a mutation rate of 0.001 and 1000 generations. Both gave a best score of around 1730.
+
 image here
 
 ### Simulated annealing
