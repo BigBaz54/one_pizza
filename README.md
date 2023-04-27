@@ -4,7 +4,7 @@ Here is the [link](https://codingcompetitions.withgoogle.com/hashcode/round/0000
 
 The data I used is in the *data* folder and the solutions are written in subfolders of the *solutions* folder wich will be created when you run the code.
 
-I used several approaches to solve it, to experiment with different algorithms and to compare the results.
+I used several approaches to solve it, to experiment with different algorithms and to compare the results. All the results given are for the *data/d_difficile.txt* file.
 
 ## The scoring function
 
@@ -79,11 +79,16 @@ It keeps a list of the last solutions and prevents the algorithm from going back
 
 You can modify the size of the tabu list. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
+It didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration.
+
+Maybe only allowing to toggle the most promising ingredients would help reducing the size of the neighborhood. I might try to implement this in the future.
+
 ### Greedy algorithm
 
 This approach is based on the greedy algorithm.
 
 It consists it iteratingly adding to the recipe the ingredient that will increase the score the most. It stops when the score cannot be increased anymore.
 
+It is very slow too since it needs to compute the score of all the possible ingredients to add to the recipe at each iteration.
 
-
+This approach reaches a score of 1764.
