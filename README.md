@@ -75,7 +75,7 @@ Here are the results I got for different values of the temperature and the tempe
 | **Rate = 0.90** | 1664        | 1672       | 1677       | 1653       | 1671      | 1676      | 1656      |
 | **Rate = 0.80** | 1664        | 1656       | 1669       | 1698       | 1669      | 1654      | 1668      |
 
-We can see that a temperatures of 10 to 20 with high decrease rate or a temperature of 5 to 10 with a low decrease rate give the best results.
+We can see that a temperature of 10 to 20 with high decrease rate or a temperature of 5 to 10 with a low decrease rate give the best results.
 
 As shown in the plots below, a decrease rate of 0.99 with too high temperatures is suboptimal because worse solutions are kept too often and the best solution stagnates for a while.
 
