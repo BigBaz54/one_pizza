@@ -23,16 +23,16 @@ def accept_probability(old_fitness, new_fitness, temperature):
     except ZeroDivisionError:
         return 0
 
-def simulated_annealing(file, temperature_init, annealing_rate=0.99, max_iterations=None, objective=None, output_file=None, first_state=None):
+def simulated_annealing(file, temperature_init, annealing_rate=0.99, max_iterations=None, objective=None, output_file=None, init_state=None):
     if output_file is None:
         output_file = file.split('/')[1]
     if objective is None and max_iterations is None:
         raise ValueError("Either max_iterations or objective must be specified")
     clients = pizza_parser.parse(file)
-    if first_state is None:
+    if init_state is None:
         state = first_state(file)
     else:
-        state = first_state
+        state = init_state
     best_state = state
     best_fitness = state.get_score(clients)
     temperature = temperature_init
