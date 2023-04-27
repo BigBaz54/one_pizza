@@ -54,9 +54,9 @@ Here are the results I got for different values of the mutation rate. The popula
 
 A mutation rate around 0.001 seems to be the best choice for this instance of the problem. It has 600 ingredients so such mutation rates correspond to less than 1 ingredient being mutated on average. It allows the algorithm to explore the search space without making too many changes at once.
 
-The plot below shows the evolution of the best solution for both selection methods for a mutation rate of 0.001 and 1000 generations. Both gave a best score of around 1730 and seem to have a similar evolution.
+The plots below show the evolution of the best solution for both selection methods for a mutation rate of 0.001 and 1000 generations. Both gave a best score of around 1730 and seem to have a similar evolution.
 
-image here
+<img src="https://user-images.githubusercontent.com/96493391/234731423-78a76a27-d36d-492f-9d32-b094224ab127.png" width="750" height="200">
 
 ### Simulated annealing
 
