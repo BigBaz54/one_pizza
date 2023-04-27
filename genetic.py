@@ -93,4 +93,4 @@ def plot_results(files, titles=None):
 if __name__ == "__main__":
     # recipes = genetic_algorithm("data/d_difficile.txt", 100, 0.001, objective=1800, nb_gen=1000, output_file="d_difficile_001_2.txt", tournament=True)
 
-    plot_results(["d_difficile_001.txt", "d_difficile_001_T.txt", "d_difficile_001_T_2.txt"], ["Mutation rate = 0.001", "Mutation rate = 0.001, tournament selection", "Mutation rate = 0.001, tournament selection 2"])
+    plot_results(["d_difficile_001_2.txt", "d_difficile_001_T_2.txt"], ["Mutation rate = 0.001", "Mutation rate = 0.001, tournament selection"])
