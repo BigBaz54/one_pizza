@@ -89,7 +89,9 @@ It keeps a list of the last solutions and prevents the algorithm from going back
 
 You can modify the size of the tabu list. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
-It didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration.
+I didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. 
+
+It reached 1769 in 200 iterations which took several hours.
 
 Maybe only allowing to toggle the most promising ingredients would help reducing the size of the neighborhood. I might try to implement this in the future.
 
