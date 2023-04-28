@@ -29,4 +29,4 @@ def get_ingredient_score(ingredient, path):
     return score
 
 if __name__ == "__main__":
-    print(get_ingredients_sorted_best_to_worst("data/d_difficile.txt"))
+    print(get_ingredients_with_score("data/d_difficile.txt"))
