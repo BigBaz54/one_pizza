@@ -15,11 +15,14 @@ It is very long to compute for large instances of the problem since you need to 
 ## Different approaches
 
 Here is a summary of the different approaches I used to solve the problem.
-  - [Explicit search](#explicit-search)
-  - [Genetic](#genetic)
-  - [Simulated annealing](#simulated-annealing)
-  - [Tabu search](#tabu-search)
-  - [Greedy algorithm](#greedy-algorithm)
+- [one\_pizza](#one_pizza)
+  - [The scoring function](#the-scoring-function)
+  - [Different approaches](#different-approaches)
+    - [Explicit search](#explicit-search)
+    - [Genetic](#genetic)
+    - [Simulated annealing](#simulated-annealing)
+    - [Tabu search](#tabu-search)
+    - [Greedy algorithm](#greedy-algorithm)
 
 For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
 
@@ -87,13 +90,12 @@ This approach is based on the tabu search algorithm. It consists in creating a s
 
 It keeps a list of the last solutions and prevents the algorithm from going back to these solutions. This allows the algorithm to escape local minima.
 
-You can modify the size of the tabu list. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
-I didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. 
+Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. To reduce its size, I implemented an heuristic consisting in only toggling the presence of the ingredients that are the most promising. 
 
-It reached a score of 1769 in 200 iterations which took several hours.
+The score of an ingredient is inscreased by 1/N for every client that has it in his list of N liked ingredients and decreased by 1 for every client that has it in his list of disliked ingredients. The higher the score of an ingredient, the more likely it is to be added to the recipe. The lower the score of an ingredient, the more likely it is to be removed from the recipe.
 
-Maybe only allowing to toggle the most promising ingredients would help reducing the size of the neighborhood. I might try to implement this in the future.
+You can modify the size of the tabu list and the size of the neighbourhood generated at each iteration. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
 ### Greedy algorithm
 
