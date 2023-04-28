@@ -15,14 +15,11 @@ It is very long to compute for large instances of the problem since you need to 
 ## Different approaches
 
 Here is a summary of the different approaches I used to solve the problem.
-- [one\_pizza](#one_pizza)
-  - [The scoring function](#the-scoring-function)
-  - [Different approaches](#different-approaches)
-    - [Explicit search](#explicit-search)
-    - [Genetic](#genetic)
-    - [Simulated annealing](#simulated-annealing)
-    - [Tabu search](#tabu-search)
-    - [Greedy algorithm](#greedy-algorithm)
+  - [Explicit search](#explicit-search)
+  - [Genetic](#genetic)
+  - [Simulated annealing](#simulated-annealing)
+  - [Tabu search](#tabu-search)
+  - [Greedy algorithm](#greedy-algorithm)
 
 For each approach, you need to provide the path to the data file corresponding to the problem you want to solve.
 
@@ -57,9 +54,9 @@ Here are the results I got for different values of the mutation rate. The popula
 
 A mutation rate around 0.001 seems to be the best choice for this instance of the problem. It has 600 ingredients so such mutation rates correspond to less than 1 ingredient being mutated on average. It allows the algorithm to explore the search space without making too many changes at once.
 
-The plot below shows the evolution of the best solution for both selection methods for a mutation rate of 0.001 and 1000 generations. Both gave a best score of around 1730 and seem to have a similar evolution.
+The plots below show the evolution of the best solution for both selection methods for a mutation rate of 0.001 and 1000 generations. Both gave a best score of around 1730 and seem to have a similar evolution.
 
-image here
+<img src="https://user-images.githubusercontent.com/96493391/234731423-78a76a27-d36d-492f-9d32-b094224ab127.png" width="750" height="200">
 
 ### Simulated annealing
 
@@ -78,11 +75,11 @@ Here are the results I got for different values of the temperature and the tempe
 | **Rate = 0.90** | 1664        | 1672       | 1677       | 1653       | 1671      | 1676      | 1656      |
 | **Rate = 0.80** | 1664        | 1656       | 1669       | 1698       | 1669      | 1654      | 1668      |
 
-We can see that a temperatures of 10 to 20 with high decrease rate or a temperature of 5 to 10 with a low decrease rate give the best results.
+We can see that a temperature of 10 to 20 with high decrease rate or a temperature of 5 to 10 with a low decrease rate give the best results.
 
-As shown in the plot below, a decrease rate of 0.99 with too high temperatures is suboptimal because worse solutions are kept too often and the best solution stagnates for a while.
+As shown in the plots below, a decrease rate of 0.99 with too high temperatures is suboptimal because worse solutions are kept too often and the best solution stagnates for a while.
 
-image here
+<img src="https://user-images.githubusercontent.com/96493391/234730967-ac48e4ed-27bf-4fd6-8438-6e9d330c23f6.png" width="660" height="550">
 
 ### Tabu search
 
@@ -92,7 +89,9 @@ It keeps a list of the last solutions and prevents the algorithm from going back
 
 You can modify the size of the tabu list. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
-It didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration.
+I didn't find any heuristic to select only few neighbors to explore that would give better results than exploring all the neighbors. Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. 
+
+It reached a score of 1769 in 200 iterations which took several hours.
 
 Maybe only allowing to toggle the most promising ingredients would help reducing the size of the neighborhood. I might try to implement this in the future.
 
