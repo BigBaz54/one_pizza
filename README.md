@@ -86,12 +86,11 @@ As shown in the plots below, a decrease rate of 0.99 with too high temperatures 
 
 ### Tabu search
 
-This approach is based on the tabu search algorithm. It consists in creating a solution and then going through its neighborhood to find the best solution. The neighborhood is created by toggling the presence of an ingredient in a recipe.
+This approach is based on the tabu search algorithm. It consists in creating a solution and then going through its neighbourhood to find the best solution. The neighbourhood is created by toggling the presence of an ingredient in a recipe.
 
 It keeps a list of the last solutions and prevents the algorithm from going back to these solutions. This allows the algorithm to escape local minima.
 
-
-Since the neighborhood is very large, it is very slow to compute the score of all the neighbors at each iteration. To reduce its size, I implemented an heuristic consisting in only toggling the presence of the ingredients that are the most promising. 
+Since the neighbourhood is very large, it is very slow to compute the score of all the neighbours at each iteration. To reduce its size, I implemented an heuristic consisting in only toggling the presence of the ingredients that are the most promising. 
 
 The score of an ingredient is inscreased by 1/N for every client that has it in his list of N liked ingredients and decreased by 1 for every client that has it in his list of disliked ingredients. The higher the score of an ingredient, the more likely it is to be added to the recipe. The lower the score of an ingredient, the more likely it is to be removed from the recipe.
 
