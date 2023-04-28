@@ -11,11 +11,10 @@ def get_ingredients(path):
             ingredients.add(ingredient)
     return list(ingredients)
 
-def get_ingredients_sorted_best_to_worst(path):
-    # ingredients are sorted by their score, which is explained in get_ingredient_score
+def get_ingredients_with_score(path):
     ingredients = get_ingredients(path)
-    ingredients.sort(key=lambda x: get_ingredient_score(x, path), reverse=True)
-    return ingredients
+    ingredients_with_score = [(ingredient, get_ingredient_score(ingredient, path)) for ingredient in ingredients]
+    return ingredients_with_score
 
 def get_ingredient_score(ingredient, path):
     # the score is increased by 1/n for every client that has the ingredient in their liked list of n ingredients
