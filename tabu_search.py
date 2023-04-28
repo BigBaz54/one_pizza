@@ -1,9 +1,11 @@
 import math
 import os
+import random
 
 from matplotlib import pyplot as plt
 from recipe import Recipe
 import pizza_parser
+from get_ingredients import get_ingredients, get_ingredients_with_score
 
 class TabuList():
     def __init__(self, size):
@@ -24,15 +26,59 @@ class TabuList():
 def first_state(file):
     return Recipe(file)
 
-def get_neighbours(state):
+def get_neighbourhood(state, size, ingredients_scores):
+    # creating lists of potential ingredients to toggle and their score
+    active_ingredients = []
+    active_ingredients_scores = []
+    inactive_ingredients = []
+    inactive_ingredients_scores = []
+
+    # the higher the score, the more likely an inactive ingredient will be added
+    # the lower the score, the more likely an active ingredient will be removed
+    for ingredient in state.ingredients.keys():
+        score = ingredients_scores[ingredient]
+        if state.ingredients[ingredient] == 1:
+            active_ingredients.append(ingredient)
+            if score <= 0:
+                score = -score + 1
+            else:
+                score = 1/score
+            active_ingredients_scores.append(score)
+        else:
+            inactive_ingredients.append(ingredient)
+            if score >= 0:
+                score = score + 1
+            else:
+                score = -1/score
+            inactive_ingredients_scores.append(score)
+
+    # selecting randomly the number of ingredients to be added and removed
+    add_nb = random.randint(1, min(size, len(inactive_ingredients)))
+    remove_nb = size - add_nb
+
+    # selecting the ingredients to add and remove randomly but weighted by their score
+    to_be_added = set()
+    to_be_removed = set()
+    while len(to_be_added) < add_nb:
+        to_be_added.add(random.choices(inactive_ingredients, weights=inactive_ingredients_scores, k=1)[0])
+    while len(to_be_removed) < remove_nb:
+        to_be_removed.add(random.choices(active_ingredients, weights=active_ingredients_scores, k=1)[0])
+
+    # generating neighbourhood
     neighbours = []
-    for ingredient in state.ingredients:
+    for ingredient_to_remove in list(to_be_removed):
         neighbour = state.copy()
-        neighbour.toggle_ingredient(ingredient)
+        neighbour.ingredients[ingredient_to_remove] = 0
+        neighbours.append(neighbour)
+    for ingredient_to_add in list(to_be_added):
+        neighbour = state.copy()
+        neighbour.ingredients[ingredient_to_add] = 1
         neighbours.append(neighbour)
     return neighbours
 
-def tabu_search(file, tabu_size, objective=None, max_iterations=None, output_file=None, init_state=None):
+def tabu_search(file, tabu_size, objective=None, max_iterations=None, neighbourhood_size=None, output_file=None, init_state=None):
+    if neighbourhood_size is None:
+        neighbourhood_size = len(get_ingredients(file))
     if objective is None and max_iterations is None:
         raise ValueError("Either max_iterations or objective must be specified")
     if output_file is None:
@@ -46,10 +92,12 @@ def tabu_search(file, tabu_size, objective=None, max_iterations=None, output_fil
     count = 0
     if not os.path.exists("solutions/tabu_search"):
         os.makedirs("solutions/tabu_search")
+    ingredients_with_scores = get_ingredients_with_score(file)
+    ingredients_scores = {ingredient: score for ingredient, score in ingredients_with_scores}
     best_state = state
     best_score = state.get_score(clients=clients)
     while (max_iterations is None or count < max_iterations) and (objective is None or best_score < objective):
-        neighbours = get_neighbours(state)
+        neighbours = get_neighbourhood(state, neighbourhood_size, ingredients_scores)
         neighbours = [neighbour for neighbour in neighbours if not tabu_list.contains(neighbour)]
         if len(neighbours) == 0:
             raise Exception("No neighbours found")
@@ -87,5 +135,5 @@ def plot_results(files, titles=None):
     plt.show()
 
 if __name__ == "__main__":
-    for ts in [1000]:
-        tabu_search("data/d_difficile.txt", tabu_size=ts, objective=1800, max_iterations=1000, output_file=f"d_difficile_{ts}.txt")
+    for ts in [800]:
+        tabu_search("data/d_difficile.txt", tabu_size=ts, objective=1800, max_iterations=800, neighbourhood_size=20, output_file=f"d_difficile_{ts}.txt")
