@@ -96,6 +96,22 @@ The score of an ingredient is inscreased by 1/N for every client that has it in 
 
 You can modify the size of the tabu list and the size of the neighbourhood generated at each iteration. The algorithm stops after a given number of iterations or if the best solution has reached the objective score given by the user.
 
+Here are the results I got for different values of the tabu list size and the neighbourhood size. The number of iterations is 500.
+
+|             | **TS = 1** | **TS = 10** | **TS = 50** | **TS = 200** | **TS = 500** |
+|:-----------:|:----------:|:-----------:|:-----------:|:------------:|:------------:|
+| **NS = 5**  | 1770       | 1775        | 1769        | 1770         | 1771         |
+| **NS = 20** | 1792       | 1797        | 1792        | 1792         | 1790         |
+| **NS = 50** | 1797       | 1784        | 1794        | 1795         | 1799         |
+
+We can see that even with a tabu list of size 1, the algorithm is able to find a very good solution and the neighbourhood size does seem to have a greater impact on the results as shown in the plots below.
+
+img here
+
+It can be explained by the fact that one a good ingredient have been added, it has a high score and is very unlikely to be removed from the recipe. So a visited solution is very unlikely to be visited again.
+
+The heuristic to prioritize some neighbours over others seems to be very efficient and could probably be used to improve the other approaches.
+
 ### Greedy algorithm
 
 This approach is based on the greedy algorithm.
