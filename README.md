@@ -106,7 +106,7 @@ Here are the results I got for different values of the tabu list size and the ne
 
 We can see that even with a tabu list of size 1, the algorithm is able to find a very good solution and the neighbourhood size does seem to have a greater impact on the results as shown in the plots below.
 
-img here
+<img src="https://user-images.githubusercontent.com/96493391/235314426-e6a4542f-da4d-4826-a351-2cf3a4f65b4c.png" width="660" height="550">
 
 It can be explained by the fact that one a good ingredient have been added, it has a high score and is very unlikely to be removed from the recipe. So a visited solution is very unlikely to be visited again.
 
