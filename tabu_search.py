@@ -135,5 +135,8 @@ def plot_results(files, titles=None):
     plt.show()
 
 if __name__ == "__main__":
-    for ts in [800]:
-        tabu_search("data/d_difficile.txt", tabu_size=ts, objective=1800, max_iterations=800, neighbourhood_size=20, output_file=f"d_difficile_{ts}.txt")
+    # for ts in [1, 10, 50, 200, 500]:
+    #     for ns in [5, 20, 50]:
+    #         tabu_search("data/d_difficile.txt", tabu_size=ts, objective=1800, max_iterations=500, neighbourhood_size=ns, output_file=f"d_difficile_{ts}_{ns}.txt")
+
+    plot_results([f"d_difficile_{ts}_{ns}.txt" for ts in [1, 10, 50, 200, 500] for ns in [5, 20, 50]], titles=[f"tabu_size={ts}, neighbourhood_size={ns}" for ts in [1, 10, 50, 200, 500] for ns in [5, 20, 50]])
