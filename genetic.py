@@ -60,7 +60,8 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
             f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_score(clients)) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
         gen = selection(gen, pop_size//2, clients) if tournament == False else tournament_selection(gen, pop_size//2, clients)
         if shuffle_before_crossover:
-            random.shuffle(gen)
+            # we keep the best recipe in first position to avoid having to compute all the scores again to get the best recipe
+            gen = [gen[0]] + random.sample(gen[1:], len(gen)-1)
         for i in range(pop_size//4):
             child1, child2 = crossover(gen[i], gen[-i-1])
             mutation(child1, mutation_rate)
