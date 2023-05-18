@@ -43,7 +43,7 @@ def tournament_selection(recipes, size, clients=None):
             selected.append(recipes[-i-1])
     return selected
 
-def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None, output_file=None, tournament=False):
+def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None, output_file=None, tournament=False, shuffle_before_crossover=False):
     if output_file is None:
         output_file = file.split('/')[1]
     if nb_gen is None and objective is None:
@@ -59,6 +59,8 @@ def genetic_algorithm(file, pop_size, mutation_rate, nb_gen=None, objective=None
         with open(os.path.join("solutions", "genetic", output_file), "a") as f:
             f.write("Generation: " + str(count) + "\nBest score: " + str(gen[0].get_score(clients)) + "\nBest recipe: " + str(gen[0].get_ingredients()) + "\n\n")
         gen = selection(gen, pop_size//2, clients) if tournament == False else tournament_selection(gen, pop_size//2, clients)
+        if shuffle_before_crossover:
+            random.shuffle(gen)
         for i in range(pop_size//4):
             child1, child2 = crossover(gen[i], gen[-i-1])
             mutation(child1, mutation_rate)
